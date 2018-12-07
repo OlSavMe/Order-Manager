@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Adding Orders</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <link type="text/css" rel="stylesheet"  href= "css/bootstrap.min.css"  th:href="@{css/bootstrap.min.css}" />
+</head>
+
+<body>
+
+<div class="container">
+
+			<div style="clear: both; display: block; height: 50px;"></div>
+
+	<h1>Add order</h1>
+
+	<div>
+		<form th:object="${order}" th:action="@{save}" action="#" method="post" class="form-inline">
+		<div style="clear: both; display: block; height: 20px;"></div>
+		 <div class="form-group">
+				<label for="itemlist">Item</label>
+			 <select id="itemlist" th:field="*{item}" class="form-control">
+       			<option th:each="item: ${items}" th:value="${item.itemid}" th:text="${item.name}"></option>
+    		</select>
+    		</div>
+    		 <div style="clear: both; display: block; height: 10px;"></div>
+    		 <div style="clear: both; display: block; height: 20px;"></div>
+    		  <div class="form-group">
+				<label for="qty">Quantity</label> 
+				<input type="text" id="qty" th:field="*{qty}" /> 
+				</div>
+		<div style="clear: both; display: block; height: 10px;"></div>
+		<div style="clear: both; display: block; height: 20px;"></div>
+		 <div class="form-group">
+			<label for="unitlist">Unit</label>
+				<select id="unitlist" th:field="*{unit}" class="form-control">
+       			<option th:each="unit: ${units}" th:value="${unit.unitid}" th:text="${unit.name}"></option>
+    		</select>
+    		</div>
+    		<div style="clear: both; display: block; height: 10px;"></div>
+    		<div style="clear: both; display: block; height: 20px;"></div>
+    		 <div class="form-group">
+				<label for="deadline">Deadline</label>
+			<input type="date" id="deadline" th:field="*{deadline}" /> 
+			</div>
+		
+			
+			<div style="clear: both; display: block; height: 30px;"></div>
+			<input type="submit" value="Save" class="btn btn-success"></input>
+		</form>
+	</div>
+
+</div>
+
+</body>
+</html>

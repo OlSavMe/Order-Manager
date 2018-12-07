@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>List of Orders</title>
+    <link type="text/css" rel="stylesheet"  href= "css/bootstrap.min.css"  th:href="@{css/bootstrap.min.css}" />
+</head>
+
+<body>
+<div class="container">
+
+ <div class="row">
+			<div class="col-md-6 col-md-offset-3">
+  
+  
+  	<h2 th:inline="text">[[${#httpServletRequest.remoteUser}]], welcome to Order Manager!</h2>
+	
+	
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-danger"/>
+		</form>
+ </br>
+<h3>Today is: <span th:text="${#temporals.format(localDateTime, 'dd-MM-yyyy')}"></span></h3>
+<h3>The total number of orders: <span th:text="${count}"></span></h3>
+</div>
+ </div>
+ </br>
+ <a href="/add" class="btn btn-success">Add Order</a> 
+
+
+    	<table class="table table-condensed">
+    	<thead>
+    	<tr>
+    	<th>Id</th>
+    	<th>Item</th>
+    	<th>Quantity</th>
+    	<th>Unit</th>
+    	<th>Deadline</th>
+    
+    	
+    
+    	</tr>
+    	</thead>
+    
+ <tbody>
+    	<tr class="warning" th:each="order: ${orders}">
+    	<td th:text="${order.id}"></td>
+    	<td th:text="${order.item.name}"></td>
+    	<td th:text="${order.qty}"></td>
+    	<td th:text="${order.unit.name}"></td>
+    	<td th:text="${order.deadline}"></td>
+    	
+    	
+    	<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-danger" th:href="@{/delete/{id}(id=${order.id})}">Delete</a></td>
+    	<td><a class="btn btn-success" th:href="@{/edit/{id}(id=${order.id})}">Edit</a></td>
+  		</tr>
+  		</tbody>
+  		
+    	</table>
+
+ </div>
+</body>
+</html>
+
+
